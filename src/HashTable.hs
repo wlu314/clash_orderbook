@@ -11,6 +11,7 @@
 
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE RecordWildCards #-}
@@ -30,12 +31,12 @@ type QuantityWidth = 32
 
 -- ITCH opcodes
 data Opcode = ITCH_ADD | ITCH_OEXEC | ITCH_PEXEC | ITCH_CANCEL | ITCH_DELETE | ITCH_REPLACE
-  deriving stock (Show, Generic, Eq)
-  deriving anyclass (NFDataX, BitPack)
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (BitPack, NFDataX)
 
 data Side = Bid | Ask
-  deriving stock (Show, Generic, Eq)
-  deriving anyclass (NFDataX, BitPack)
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (BitPack, NFDataX)
 
 data Inst = Inst
   {   opcode     :: Opcode
@@ -48,15 +49,15 @@ data Inst = Inst
     , newOrderID :: BitVector OrderIdWidth 
   }
   deriving stock (Show, Generic)
-  deriving anyclass (NFDataX, BitPack)
+  deriving anyclass (BitPack, NFDataX)
 
 data OrderEntry = OrderEntry
   { oeValid     :: Bool
   , oePrice     :: BitVector PriceWidth
   , oeQuantity  :: BitVector QuantityWidth
   }
-  deriving stock (Show, Generic, Eq)
-  deriving anyclass (NFDataX, BitPack)
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (BitPack, NFDataX)
 
 -- Default order entry
 defaultOrderEntry :: OrderEntry
