@@ -9,13 +9,13 @@
 -- ITCH_ADD: price and quantity is stored using key orderID
 -- ITCH_DELETE/ITCH_CANCEL: order details are looked up and cleared
 
-{-# LANGUAGE DataKinds             #-}
-{-# LANGUAGE DeriveGeneric         #-}
-{-# LANGUAGE DeriveAnyClass        #-}
-{-# LANGUAGE DerivingStrategies    #-}
-{-# LANGUAGE NoImplicitPrelude     #-}
-{-# LANGUAGE RecordWildCards       #-}
-{-# LANGUAGE TypeApplications      #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeOperators #-}
 
 module HashTable where
 
@@ -30,12 +30,12 @@ type QuantityWidth = 32
 
 -- ITCH opcodes
 data Opcode = ITCH_ADD | ITCH_OEXEC | ITCH_PEXEC | ITCH_CANCEL | ITCH_DELETE | ITCH_REPLACE
-  deriving (Show, Generic, Eq, BitPack)
-  deriving anyclass (NFDataX)
+  deriving stock (Show, Generic, Eq)
+  deriving anyclass (NFDataX, BitPack)
 
 data Side = Bid | Ask
-  deriving (Show, Generic, Eq, BitPack)
-  deriving anyclass (NFDataX)
+  deriving stock (Show, Generic, Eq)
+  deriving anyclass (NFDataX, BitPack)
 
 data Inst = Inst
   {   opcode     :: Opcode
@@ -47,16 +47,16 @@ data Inst = Inst
     , quantity   :: BitVector QuantityWidth
     , newOrderID :: BitVector OrderIdWidth 
   }
-  deriving (Show, Generic, BitPack)
-  deriving anyclass (NFDataX)
+  deriving stock (Show, Generic)
+  deriving anyclass (NFDataX, BitPack)
 
 data OrderEntry = OrderEntry
   { oeValid     :: Bool
   , oePrice     :: BitVector PriceWidth
   , oeQuantity  :: BitVector QuantityWidth
   }
-  deriving stock    (Show, Generic, Eq, BitPack)
-  deriving anyclass (NFDataX)
+  deriving stock (Show, Generic, Eq)
+  deriving anyclass (NFDataX, BitPack)
 
 -- Default order entry
 defaultOrderEntry :: OrderEntry
