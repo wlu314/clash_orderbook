@@ -1,0 +1,15 @@
+cabal-version: 2.4
+name:          itch-processor
+version:       0.1.0.0
+build-type:    Simple
+
+executable itch-processor
+  main-is:          Main.hs
+  other-modules:    HashTable
+  hs-source-dirs:   src
+  build-depends:
+    base >=4.14 && <5,
+    clash-ghc,
+    clash-lib,
+    clash-prelude
+  default-language: Haskell2010 
